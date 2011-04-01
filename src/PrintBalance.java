@@ -29,16 +29,16 @@ public class PrintBalance{
 	
 	private void printMessage() {
 		//Greeting
-		System.out.println("Hello World");
+		System.out.println(messages.getString("greeting"));
 		
 		//Get User's Name
-		System.out.println("Please enter your name");
-		System.out.println("I am pleased to meet you " + getName());
+		System.out.println(messages.getString("namePrompt"));
+		System.out.println(messages.getString("nameGreet") + " " + getName());
 		
 		//print today's date, balance and bid goodbye
-		System.out.println("As of : "+ getDate(new Date()));
-		System.out.println("You owe the school " + getBalance(9876543.21));
-		System.out.println("Good Bye");
+		System.out.println(messages.getString("asOf") + " : "+ getDate(new Date()));
+		System.out.println(messages.getString("oweMsg")+ " " + getBalance(9876543.21));
+		System.out.println(messages.getString("GoodBye"));
 	}
 	
 	private String getName()
