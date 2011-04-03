@@ -17,29 +17,61 @@ public class PrintBalance{
 	private Locale currentLocale;
 	private ResourceBundle messages;
 	
-	public PrintBalance() {
+	private Date date;
+	private Double balance;
+	
+	public PrintBalance(Date date, Double balance) {
 		currentLocale = new Locale("en", "US");
 		messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+		this.date = date;
+		this.balance = balance;
 	}
 	
-	public PrintBalance(String lang, String loc) {
+	public PrintBalance(String lang, String loc, Date date, Double balance) {
 		currentLocale = new Locale(lang, loc);
 		messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
+		this.date = date;
+		this.balance = balance;
 	}
 	
-	private void printMessage() {
+	public void printMessage() {
 		//Greeting
-		System.out.println(messages.getString("greeting"));
+		System.out.println(this.printGreeting());
 		
 		//Get User's Name
-		System.out.println(messages.getString("namePrompt"));
-		System.out.println(messages.getString("nameGreet") + " " + getName());
+		String name = this.printUserPrompt();
+		System.out.println(this.printUserGreeting(name));
 		
 		//print today's date, balance and bid goodbye
-		System.out.println(messages.getString("asOf") + " : "+ getDate(new Date()));
-		System.out.println(messages.getString("oweMsg")+ " " + getBalance(9876543.21));
-		System.out.println(messages.getString("GoodBye"));
+		System.out.println(this.printDate());
+		System.out.println(this.printBalance());
+		System.out.println(this.printGoodBye());
 	}
+	
+	public String printGreeting() {
+		return messages.getString("greeting");
+	}
+	
+	public String printUserPrompt() {
+		System.out.println(messages.getString("namePrompt"));
+		return getName();
+	}
+	
+	public String printUserGreeting(String name) {
+		return messages.getString("nameGreet") + " " + name;
+	}
+	
+	public String printDate() {
+		return messages.getString("asOf") + " : "+ getDate();	
+	}
+	
+	public String printBalance() {
+		return messages.getString("oweMsg")+ " " + getBalance();	
+	}
+	
+	public String printGoodBye() {
+		return messages.getString("GoodBye");
+	}	
 	
 	private String getName()
 	{
@@ -47,13 +79,13 @@ public class PrintBalance{
 		return scanInput.nextLine();
 	}
 	
-	private String getDate(Date date)
+	private String getDate()
 	{
 		return DateFormat.getDateInstance(DateFormat.SHORT, currentLocale).format(date);
 	}
 	
-	private String getBalance(Double amount) {
-		return NumberFormat.getCurrencyInstance(currentLocale).format(amount);
+	private String getBalance() {
+		return NumberFormat.getCurrencyInstance(currentLocale).format(balance);
 	}
 	
 	/**
@@ -63,7 +95,7 @@ public class PrintBalance{
 	 */
 	public static void main(String args[])
 	{
-		new PrintBalance().printMessage();
+		new PrintBalance(new Date(), 9876543.21).printMessage();
 	}
 }
 
