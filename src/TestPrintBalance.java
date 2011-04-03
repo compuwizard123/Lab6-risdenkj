@@ -2,7 +2,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -79,5 +81,26 @@ public class TestPrintBalance {
 		PrintBalance obj = new PrintBalance("de","DE",new Date(), 9876543.21);
 		String name = "kevin";
 		assertEquals(obj.printUserGreeting(name), "Ich freue mich, Sie kennen zu lernen " + name);
+	}
+	
+	@Test
+	public void testPrintBalanceDateenUS() {
+		Date date = new Date();
+		PrintBalance obj = new PrintBalance(date, 9876543.21);
+		assertEquals(obj.printDate(), "As of : " + DateFormat.getDateInstance(DateFormat.SHORT, new Locale("en", "US")).format(date));
+	}
+	
+	@Test
+	public void testPrintBalanceDatefrFR() {
+		Date date = new Date();
+		PrintBalance obj = new PrintBalance("fr", "FR", date, 9876543.21);
+		assertEquals(obj.printDate(), "Comme des : " + DateFormat.getDateInstance(DateFormat.SHORT, new Locale("fr", "FR")).format(date));
+	}
+	
+	@Test
+	public void testPrintBalanceDatedeDE() {
+		Date date = new Date();
+		PrintBalance obj = new PrintBalance("de","DE", date, 9876543.21);
+		assertEquals(obj.printDate(), "Wie der : " + DateFormat.getDateInstance(DateFormat.SHORT, new Locale("de", "DE")).format(date));
 	}
 }
