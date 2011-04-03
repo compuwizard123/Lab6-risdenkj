@@ -39,8 +39,8 @@ public class PrintBalance{
 		System.out.println(this.printGreeting());
 		
 		//Get User's Name
-		String name = this.printUserPrompt();
-		System.out.println(this.printUserGreeting(name));
+		System.out.println(this.printUserPrompt());
+		System.out.println(this.printUserGreeting(getName()));
 		
 		//print today's date, balance and bid goodbye
 		System.out.println(this.printDate());
@@ -53,8 +53,7 @@ public class PrintBalance{
 	}
 	
 	public String printUserPrompt() {
-		System.out.println(messages.getString("namePrompt"));
-		return getName();
+		return messages.getString("namePrompt");
 	}
 	
 	public String printUserGreeting(String name) {
