@@ -125,4 +125,22 @@ public class TestPrintBalance {
 		PrintBalance obj = new PrintBalance("de","DE",new Date(), balance);
 		assertEquals(obj.printBalance(), "Du schuldest der Schule " + NumberFormat.getCurrencyInstance(new Locale("de", "DE")).format(balance));
 	}
+	
+	@Test
+	public void testPrintBalanceGoodByeenUS() {
+		PrintBalance obj = new PrintBalance(new Date(), 9876543.21);
+		assertEquals(obj.printGoodBye(), "Good Bye");
+	}
+	
+	@Test
+	public void testPrintBalanceGoodByefrFR() {
+		PrintBalance obj = new PrintBalance("fr", "FR", new Date(), 9876543.21);
+		assertEquals(obj.printGoodBye(), "Au revoir");
+	}
+	
+	@Test
+	public void testPrintBalanceGoodByedeDE() {
+		PrintBalance obj = new PrintBalance("de","DE",new Date(), 9876543.21);
+		assertEquals(obj.printGoodBye(), "Auf Wiedersehen");
+	}
 }
